@@ -21,5 +21,6 @@ window.onload = () => {
         'Content-Type': 'application/json'
       }
     }).then(() => alert('postado!'))
+    window.location.href = '/'
   })
 }

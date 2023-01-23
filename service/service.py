@@ -7,7 +7,7 @@ class Service:
 
   def create(self, data):
     try:
-      message = data['message'].replace('<script', '')
+      message = data['message'].replace('<script', '').replace('<', '').replace('>', '')
       author = data['author']
       print(type(author))
       self.repository.create(message, author)
