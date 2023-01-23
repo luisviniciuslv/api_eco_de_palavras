@@ -20,7 +20,14 @@ window.onload = () => {
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(() => alert('postado!'))
+    }).then((response) => {
+      if (response.status === 201) {
+        alert('Postado com sucesso')
+      } 
+      if (response.status === 429) {
+        alert('O limite é de 1 post a cada 5 minutos, aguarde')
+      }
+    })
     window.location.href = '/'
   })
 }

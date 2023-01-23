@@ -1,10 +1,10 @@
 from repo.repository import Repository
 from exceptions.invalid_data_except import InvalidDataExcept
 
+
 class Service:
   def __init__(self):
     self.repository = Repository()
-
   def create(self, data):
     try:
       message = data['message'].replace('<script', '').replace('<', '').replace('>', '')

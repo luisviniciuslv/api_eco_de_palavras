@@ -1,6 +1,12 @@
 from PyForgeAPI import Routes, Response, Request
 from service.service import Service
 from exceptions.invalid_data_except import InvalidDataExcept
+import time
+from typing import Dict
+
+last_request_time: Dict[str, float] = {}
+rate_limit = 300
+current_time = time.time()
 
 routes = Routes(static_path='static')
 
@@ -10,6 +16,17 @@ async def index(req: Request, res: Response):
 
 @routes.post('/')
 async def main(req: Request, res: Response):
+  ip = req._request.client_address[0]
+  current_time = time.time()
+  if ip in last_request_time:
+    elapsed_time = current_time - last_request_time[ip]
+    print(elapsed_time)
+    print(rate_limit)
+    if elapsed_time < rate_limit:
+      print('Rate limit exceeded')
+      return res.send_status(429)
+    
+  last_request_time[ip] = current_time
   try: 
     data = req.body.json
     Service().create(data)
