@@ -29,8 +29,22 @@ async def main(req: Request, res: Response):
   last_request_time[ip] = current_time
   try: 
     data = req.body.json
-    Service().create(data)
-    res.send_status(201)
+    filtro=0
+    frase=req.body.json['message']
+    print(frase)
+    badwords=['<img>','<script>','fuck','fuder','puta','<a>','<center>']
+    for palavra in badwords:
+      if frase.find(palavra) == -1:
+         pass
+      else:
+         filtro=2
+    if filtro == 2:
+      res.status(400).json({"error":"contem palavras proibidas" }).send()
+      print("post proibido bloqueado")
+    else:
+      Service().create(data)
+      res.send_status(201)
+
   except InvalidDataExcept as e:
     abre_chave = "{"
     fecha_chave = "}"
