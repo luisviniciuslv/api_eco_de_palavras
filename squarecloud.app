@@ -3,4 +3,4 @@ DESCRIPTION=Um teste social foda
 MAIN=main.py
 MEMORY=512
 VERSION=recommended
-SUBDOMAIN=ecodepalavras.squareweb.app
+SUBDOMAIN=ecodepalavrasapi.squareweb.app
