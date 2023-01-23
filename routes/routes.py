@@ -2,15 +2,18 @@ from PyForgeAPI import Routes, Response, Request
 from service.service import Service
 from exceptions.invalid_data_except import InvalidDataExcept
 
-routes = Routes()
+routes = Routes(static_path='static')
+
+@routes.get('/post')
+async def index(req: Request, res: Response):
+  res.render_page('./static/index.html').status(200).send()
 
 @routes.post('/')
 async def main(req: Request, res: Response):
   try: 
     data = req.body.json
     Service().create(data)
-    res.status(201)
-
+    res.send_status(201)
   except InvalidDataExcept as e:
     abre_chave = "{"
     fecha_chave = "}"
