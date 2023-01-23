@@ -14,10 +14,16 @@ class Repository:
   def get_random(self):
     self.cursor.execute('SELECT * FROM messages ORDER BY RANDOM() LIMIT 1')
     reponse = self.cursor.fetchone()
-    data = {
-      'message': reponse[0],
-      'author': reponse[1],
-      'date': reponse[2]
-    }
-    
+    try:
+      data = {
+        'message': reponse[0],
+        'author': reponse[1],
+        'date': reponse[2]
+      }
+    except:
+      data = {
+        'message': 'No messages found',
+        'author': 'No author found',
+        'date': 'No date found'
+      }
     return data
