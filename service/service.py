@@ -9,7 +9,6 @@ class Service:
     try:
       message = data['message'].replace('<script', '').replace('<', '').replace('>', '')
       author = data['author']
-      print(type(author))
       self.repository.create(message, author)
     except KeyError:
       raise InvalidDataExcept('Missing required fields')

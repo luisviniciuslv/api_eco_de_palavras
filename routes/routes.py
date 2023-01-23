@@ -6,7 +6,7 @@ routes = Routes(static_path='static')
 
 @routes.get('/post')
 async def index(req: Request, res: Response):
-  res.render_page('static/index.html').status(200).send()
+  res.render_page('index.html').status(200).send()
 
 @routes.post('/')
 async def main(req: Request, res: Response):
