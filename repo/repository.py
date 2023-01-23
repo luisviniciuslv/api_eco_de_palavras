@@ -1,7 +1,5 @@
 import sqlite3
-import time 
-
-
+from datetime import datetime 
 
 class Repository:
   def __init__(self):
@@ -10,7 +8,7 @@ class Repository:
     self.cursor.execute('CREATE TABLE IF NOT EXISTS messages (message text, author text, date text)')
 
   def create(self, message, author):
-    self.cursor.execute('INSERT INTO messages VALUES (?, ?, ?)', (message, author, time.strftime('%d/%m/%Y %H:%M:%S')))
+    self.cursor.execute('INSERT INTO messages VALUES (?, ?, ?)', (message, author, datetime.now()))
     self.banco.commit()
 
   def get_random(self):
