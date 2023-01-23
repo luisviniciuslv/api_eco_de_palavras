@@ -14,12 +14,12 @@ window.onload = () => {
       message
     }
 
-    fetch('http://26.86.130.217:80', {
+    fetch('/', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json'
       }
-    })
+    }).then(() => alert('postado!'))
   })
 }
