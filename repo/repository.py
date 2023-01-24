@@ -1,6 +1,6 @@
 import sqlite3
 from datetime import datetime 
-
+from pytz import timezone
 class Repository:
   def __init__(self):
     self.banco = sqlite3.connect('messages.db')
@@ -8,7 +8,9 @@ class Repository:
     self.cursor.execute('CREATE TABLE IF NOT EXISTS messages (message text, author text, date text)')
 
   def create(self, message, author):
-    self.cursor.execute('INSERT INTO messages VALUES (?, ?, ?)', (message, author, datetime.now()))
+    tz = timezone('America/Sao_Paulo')
+    now = datetime.now(tz)  
+    self.cursor.execute('INSERT INTO messages VALUES (?, ?, ?)', (message, author, now))
     self.banco.commit()
 
   def get_random(self):

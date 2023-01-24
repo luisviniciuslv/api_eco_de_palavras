@@ -12,14 +12,14 @@ routes = Routes(static_path='static').cors()
 
 @routes.post('/')
 async def main(req: Request, res: Response):
-  ip = req._request.client_address[0]
+  token = req._request.headers.get('x-api-key')
   current_time = time.time()
-  if ip in last_request_time:
-    elapsed_time = current_time - last_request_time[ip]
+  if token in last_request_time:
+    elapsed_time = current_time - last_request_time[token]
     if elapsed_time < rate_limit:
       return res.send_status(429)
     
-  last_request_time[ip] = current_time
+  last_request_time[token] = current_time
   try: 
     data = req.body.json
     Service().create(data)
